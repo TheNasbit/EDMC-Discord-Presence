@@ -2,7 +2,7 @@
 "!Language" = "English";
 
 /* Idle message. [load.py] */
-"Connecting CMDR Interface" = "Connecting CMDR Interface";
+"Connecting CMDR Interface" = "In menus";
 
 /* Details of system. [load.py] */
 "In system {system}" = "In system {system}";
