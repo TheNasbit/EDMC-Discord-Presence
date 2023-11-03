@@ -62,35 +62,17 @@ def callback(result):
 
 def update_presence():
     global shutdown
-    if isinstance(appversion, str):
-        core_version = semantic_version.Version(appversion)
-
-    elif callable(appversion):
-        core_version = appversion()
-
-
-    logger.info(f'Core EDMC version: {core_version}')
-    if core_version < semantic_version.Version('5.0.0-beta1'):
-        logger.info('EDMC core version is before 5.0.0-beta1')
-        if config.getint("disable_presence") == 0:
-            this.activity.state = this.presence_state
-            this.activity.details = this.presence_details
-    else:
-        logger.info('EDMC core version is at least 5.0.0-beta1')
-        if config.get_int("disable_presence") == 0:
-            this.activity.state = this.presence_state
-            this.activity.details = this.presence_details
-
-    this.activity.timestamps.start = int(this.time_start)
-    this.activity.assets.large_image = this.largeimage
-    this.activity.assets.large_text = this.largetext
-    this.activity.assets.small_image = this.smallimage
-    this.activity.assets.small_text = this.smalltext
-
-    if shutdown == True or config.get_int("disable_presence") == 0:
-        this.activity_manager.clear_activity(callback)
-    else:
+    if config.get_int("disable_presence") == 0 and shutdown == False:
+        this.activity.state = this.presence_state
+        this.activity.details = this.presence_details
+        this.activity.timestamps.start = int(this.time_start)
+        this.activity.assets.large_image = this.largeimage
+        this.activity.assets.large_text = this.largetext
+        this.activity.assets.small_image = this.smallimage
+        this.activity.assets.small_text = this.smalltext
         this.activity_manager.update_activity(this.activity, callback)
+    else:
+        this.activity_manager.clear_activity(callback)
 
 
 def plugin_prefs(parent, cmdr, is_beta):
