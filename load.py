@@ -124,7 +124,7 @@ def journal_entry(cmdr, is_beta, system, station, entry, state):
     if system != cursystem:
         this.time_start = time.time()
         cursystem = system
-    if entry['event'] == ['LoadGame', 'Startup', 'StartUp']:
+    if entry['event'] in ['LoadGame', 'Startup', 'StartUp']:
         presence_state = _('In system {system}').format(system=system)
         if station is None:
             presence_details = _('Flying in normal space')
@@ -187,7 +187,7 @@ def journal_entry(cmdr, is_beta, system, station, entry, state):
         presence_details = _('Flying in normal space')
         small_image = 'system'
         this.time_start = time.time()
-    elif entry['event'] == ['ShutDown', 'Shutdown']:
+    elif entry['event'] in ['ShutDown', 'Shutdown']:
         presence_state = _('Connecting CMDR Interface')
         presence_details = ''
         small_image = ''
@@ -200,7 +200,7 @@ def journal_entry(cmdr, is_beta, system, station, entry, state):
             presence_state = _('Connecting CMDR Interface')
             presence_details = ''
     # Todo: This elif might not be executed on undocked. Functionality can be improved
-    elif entry['event'] == ['Undocked', 'DockingCancelled', 'DockingTimeout']:
+    elif entry['event'] in ['Undocked', 'DockingCancelled', 'DockingTimeout']:
         presence_details = _('Flying near {station}').format(station=entry['StationName'])
     # Planetary events
     elif entry['event'] == 'ApproachBody':
